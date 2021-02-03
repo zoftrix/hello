@@ -2,9 +2,10 @@
 <html>
 <body>
 
+<h1>My PHP page</h1>
 <?php
-echo "Hello World!";
-  echo "This is Sparta";
+echo "Hello World! <br>";
+  echo "This is Sparta <br>";
 ?>
 
 </body>
