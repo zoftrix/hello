@@ -1,0 +1,23 @@
+lab manage-lifecycle start
+
+sudo podman run --name mysql-db rhscl/mysql-57-rhel7
+
+sudo podman logs mysql-db
+
+sudo podman run --name mysql -d -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 rhscl/mysql-57-rhel7
+
+sudo podman ps --format="{{.ID}} {{.Names}} {{.Status}}"
+
+sudo podman inspect -f '{{ .NetworkSettings.IPAddress }}' mysql
+
+mysql -uuser1 -h 10.88.0.4 -pmypa55 items < /home/student/DO180/labs/manage-lifecycle/db.sql
+
+sudo podman run --name mysql-2 -it rhscl/mysql-57-rhel7 /bin/bash
+
+mysql -uroot
+
+exit
+
+sudo podman ps -a --format="{{.ID}} {{.Names}} {{.Status}}"
+
+sudo podman exec mysql /bin/bash -c 'mysql -uuser1 -pmypa55 -e "select * from items.Projects;"'
